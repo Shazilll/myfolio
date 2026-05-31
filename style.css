@@ -26,6 +26,40 @@ a {
   color: var(--primary);
 }
 
+.photo-ring-wrap {
+  position: relative;
+  display: inline-block;
+  padding: 8px;
+}
+
+.photo-ring-wrap::before,
+.photo-ring-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.photo-ring-wrap::before {
+  border-top-color: var(--primary);
+  border-right-color: var(--primary);
+  animation: ring-spin 4s linear infinite;
+}
+
+.photo-ring-wrap::after {
+  border-bottom-color: var(--accent);
+  border-left-color: var(--accent);
+  animation: ring-spin 6s linear infinite reverse;
+  inset: -18px;
+}
+
+@keyframes ring-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
 .up {
   display: flex;
   justify-content: space-between;
@@ -220,15 +254,15 @@ a {
 }
 
 .inforight {
-  border: 3px solid var(--primary);
+  border: 2px solid var(--primary);
   border-radius: 50%;
-  padding: 6px;
+  padding: 0.5px;
   box-shadow: 0 15px 40px rgba(210, 180, 140, 0.4);
 }
 
 .img {
-  width: 260px;
-  height: 260px;
+  width: 320px;
+  height: 320px;
   border-radius: 50%;
   object-fit: cover;
 }
