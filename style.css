@@ -26,9 +26,6 @@ a {
   color: var(--primary);
 }
 
-/* ───────────────────────────────────────
-   INTRO SCREEN
-─────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;700&display=swap');
 
 #intro-screen {
@@ -156,9 +153,6 @@ a {
 .corner-bl { bottom: 24px; left: 24px; border-bottom: 1px solid #D2B48C; border-left: 1px solid #D2B48C; }
 .corner-br { bottom: 24px; right: 24px; border-bottom: 1px solid #D2B48C; border-right: 1px solid #D2B48C; }
 
-/* ───────────────────────────────────────
-   PHOTO RING
-─────────────────────────────────────── */
 .photo-ring-wrap {
   position: relative;
   display: inline-block;
@@ -192,9 +186,6 @@ a {
   to   { transform: rotate(360deg); }
 }
 
-/* ───────────────────────────────────────
-   HEADER
-─────────────────────────────────────── */
 .up {
   display: flex;
   justify-content: space-between;
@@ -289,9 +280,6 @@ a {
   display: none !important;
 }
 
-/* ───────────────────────────────────────
-   HERO / INFO SECTION
-─────────────────────────────────────── */
 .info {
   display: flex;
   justify-content: space-around;
@@ -396,9 +384,6 @@ a {
   display: block;
 }
 
-/* ───────────────────────────────────────
-   ABOUT
-─────────────────────────────────────── */
 .aboutme {
   padding: 60px 20px;
   background: var(--bg-light);
@@ -426,9 +411,6 @@ a {
   100% { background-position: 0% 50%; }
 }
 
-/* ───────────────────────────────────────
-   PROJECTS
-─────────────────────────────────────── */
 .myproject {
   padding: 60px 20px;
 }
@@ -464,9 +446,6 @@ a {
   text-decoration: none;
 }
 
-/* ───────────────────────────────────────
-   CERTIFICATES
-─────────────────────────────────────── */
 .certificates {
   padding: 60px 20px;
   background: var(--bg-light);
@@ -550,9 +529,6 @@ a {
   transform: scale(1);
 }
 
-/* ───────────────────────────────────────
-   EDUCATION
-─────────────────────────────────────── */
 .education {
   padding: 60px 20px;
   text-align: center;
@@ -569,9 +545,6 @@ a {
   text-align: left;
 }
 
-/* ───────────────────────────────────────
-   CONTACT
-─────────────────────────────────────── */
 .forcontact {
   padding: 40px 20px;
   text-align: center;
@@ -585,9 +558,6 @@ footer {
   font-size: 14px;
 }
 
-/* ───────────────────────────────────────
-   WHATSAPP FLOAT
-─────────────────────────────────────── */
 .whatsapp-float {
   position: fixed;
   bottom: 30px;
@@ -619,9 +589,6 @@ footer {
   50%       { transform: scale(1.07); }
 }
 
-/* ───────────────────────────────────────
-   MOBILE MENU ICON
-─────────────────────────────────────── */
 .menu-icon {
   font-size: 28px;
   color: var(--primary);
@@ -630,9 +597,6 @@ footer {
   z-index: 100;
 }
 
-/* ───────────────────────────────────────
-   RESPONSIVE — TABLET (max 768px)
-─────────────────────────────────────── */
 @media (max-width: 768px) {
   .menu-icon {
     display: block;
@@ -708,9 +672,6 @@ footer {
   }
 }
 
-/* ───────────────────────────────────────
-   RESPONSIVE — MOBILE (max 480px)
-─────────────────────────────────────── */
 @media (max-width: 480px) {
   .up {
     padding: 12px 16px;
