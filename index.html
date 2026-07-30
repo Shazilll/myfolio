@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Shazil | Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -28,6 +28,7 @@
       <span class="name-last">PERVAIZ</span>
     </div>
     <div class="tagline">Web Developer &nbsp;·&nbsp; Software Engineer</div>
+    <div class="intro-counter" id="intro-counter">0%</div>
   </div>
 
   <header class="up">
@@ -190,8 +191,54 @@
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init();
+    /* ---------- INTRO SCREEN: load-based, viewport-locked ---------- */
+    // Lock the real page in place the moment the script runs, before
+    // any layout/paint can happen underneath the intro.
+    document.documentElement.classList.add('intro-lock');
+    document.body.classList.add('intro-lock');
 
+    const introEl = document.getElementById('intro-screen');
+    const counterEl = document.getElementById('intro-counter');
+
+    let pct = 0;
+    const counterTimer = setInterval(() => {
+      pct = Math.min(99, pct + Math.random() * 14);
+      counterEl.textContent = Math.floor(pct) + '%';
+    }, 110);
+
+    const introStart = performance.now();
+    const MIN_INTRO_DISPLAY = 2600; // keeps the original ~2.6s feel
+
+    function finishIntro() {
+      const elapsed = performance.now() - introStart;
+      const wait = Math.max(0, MIN_INTRO_DISPLAY - elapsed);
+      setTimeout(() => {
+        clearInterval(counterTimer);
+        counterEl.textContent = '100%';
+        setTimeout(() => {
+          introEl.classList.add('intro-hide');
+          document.documentElement.classList.remove('intro-lock');
+          document.body.classList.remove('intro-lock');
+          // stop intro from intercepting taps/clicks once hidden
+          introEl.style.display = 'none';
+        }, 200);
+      }, wait);
+    }
+
+    if (document.readyState === 'complete') {
+      finishIntro();
+    } else {
+      window.addEventListener('load', finishIntro);
+    }
+
+    /* ---------- AOS ---------- */
+    AOS.init({
+      once: true,
+      duration: 700,
+      offset: 80
+    });
+
+    /* ---------- Typing effect ---------- */
     const words = ["Web Developer", "Software Engineer"];
     let i = 0, j = 0, isDeleting = false;
     const text = document.getElementById("typed-text");
