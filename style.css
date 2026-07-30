@@ -12,10 +12,15 @@
   --text: #f5f5f5;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background: var(--bg-dark);
   color: var(--text);
+  overflow-x: hidden;
 }
 
 html {
@@ -26,11 +31,29 @@ a {
   color: var(--primary);
 }
 
+/* Freezes the real page in place while the intro is on screen.
+   Prevents the mobile address-bar collapse/expand from shifting
+   the hero section underneath the intro. */
+html.intro-lock,
+body.intro-lock {
+  overflow: hidden;
+  height: 100dvh;
+  width: 100%;
+}
+
+body.intro-lock {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;700&display=swap');
 
 #intro-screen {
   position: fixed;
   inset: 0;
+  height: 100dvh;
+  min-height: 100vh;
   z-index: 9999;
   background: #000;
   display: flex;
@@ -38,15 +61,17 @@ a {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  animation: introExit 0.5s ease 2.6s forwards;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
-@keyframes introExit {
-  to {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-  }
+/* Replaces the old fixed-timer keyframe exit. The JS adds this
+   class only once assets have actually finished loading. */
+#intro-screen.intro-hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .line-wrap {
@@ -55,12 +80,17 @@ a {
   margin: 4px 0;
 }
 
+.name-first,
+.name-last {
+  position: relative;
+  display: block;
+}
+
 .name-first {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(42px, 14vw, 96px);
   letter-spacing: clamp(6px, 3vw, 18px);
   color: #D2B48C;
-  display: block;
   transform: translateY(110%);
   text-shadow: 0 0 60px rgba(210, 180, 140, 0.35);
   animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
@@ -71,13 +101,32 @@ a {
   font-size: clamp(42px, 14vw, 96px);
   letter-spacing: clamp(6px, 3vw, 18px);
   color: #fff;
-  display: block;
   transform: translateY(110%);
   animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
 }
 
 @keyframes slideUp {
   to { transform: translateY(0); }
+}
+
+/* Richness: a light sweep across each name once it lands */
+.name-first::after,
+.name-last::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+  transform: translateX(-160%);
+  animation: shimmer 1.4s ease 1.2s 1;
+  mix-blend-mode: overlay;
+}
+
+.name-last::after {
+  animation-delay: 1.4s;
+}
+
+@keyframes shimmer {
+  to { transform: translateX(160%); }
 }
 
 .divider-line {
@@ -107,6 +156,19 @@ a {
 
 @keyframes fadeInTag {
   to { opacity: 0.75; }
+}
+
+/* Live loading percentage — replaces the blind fixed-timer feel
+   with something that visibly reflects real load progress. */
+.intro-counter {
+  position: absolute;
+  bottom: max(40px, env(safe-area-inset-bottom));
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #D2B48C;
+  opacity: 0;
+  animation: fadeInTag 0.4s ease 1.3s forwards;
 }
 
 .flash-overlay {
